@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Is Ovechkin the GOAT ?</title>
+        <style>
+            body{
+                text-align: center;
+                font-size: 7vh;
+                font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+                color: #ffffff;
+                background-color:#C8102E;
+                text-shadow: 1px 1px 0 #041E42,
+                    -1px 1px 0 #041E42,
+                    1px -1px 0 #041E42,
+                    -1px -1px 0 #041E42,
+                    0px 1px 0 #041E42,
+                    0px -1px 0 #041E42,
+                    -1px 0px 0 #041E42,
+                    1px 0px 0 #041E42,
+                    2px 2px 0 #041E42,
+                    -2px 2px 0 #041E42,
+                    2px -2px 0 #041E42,
+                    -2px -2px 0 #041E42,
+                    0px 2px 0 #041E42,
+                    0px -2px 0 #041E42,
+                    -2px 0px 0 #041E42,
+                    2px 0px 0 #041E42,
+                    1px 2px 0 #041E42,
+                    -1px 2px 0 #041E42,
+                    1px -2px 0 #041E42,
+                    -1px -2px 0 #041E42,
+                    2px 1px 0 #041E42,
+                    -2px 1px 0 #041E42,
+                    2px -1px 0 #041E42,
+                    -2px -1px 0 #041E42;
+            }
+
+            ::selection{
+                color: #C8102E;
+                background-color:#ffffff;
+            }
+            ::-moz-selection {
+                color: #C8102E;
+                background-color:#ffffff;
+            }
+
+            .container {
+                width: 60%;
+                margin:auto;
+            }
+
+            h1 {
+                font-size: 40vh;
+            }
+
+            h5, h6 {
+                letter-spacing: 0.035em;
+            }
+
+            .margin-none {
+                margin: 0;
+            }
+
+            .margin-sm {
+                margin: 15vh;
+            }
+        </style>
+        <script type="text/javascript">
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                    if (xmlhttp.status == 200) {
+                        responseJSON = JSON.parse(xmlhttp.responseText);
+                        var goalsToGOAT = 895 - responseJSON["stats"][0]["splits"][0]["stat"]["goals"];
+                        if (goalsToGOAT < 0) {
+                            document.getElementById("isOviGOAT").innerHTML = "YES!";
+                        } else {
+                            document.getElementById("isOviGOAT").innerHTML = "NO";
+                            document.getElementById("goalsToGOAT").innerHTML = goalsToGOAT;
+                            document.getElementById("counterToGOAT").style.display = "block";
+                        }
+                    }
+                }
+            };
+
+            xmlhttp.open(
+                "GET",
+                "https://statsapi.web.nhl.com/api/v1/people/8471214/stats?stats=careerRegularSeason",
+                true
+            );
+            xmlhttp.send();
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <h5 class="margin-none">Is Alexander Ovechkin the greatest goal scorer of all time?</h5>
+            <h1 class="margin-sm" id="isOviGOAT">NO</h1>
+            <h6 class="margin-none" id="counterToGOAT" style="display:none;"><span id="goalsToGOAT"></span> goals to go...</h6>
+        </div>
+    </body>
+</html>
